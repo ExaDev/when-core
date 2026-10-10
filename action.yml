@@ -1,0 +1,40 @@
+name: When core
+description: Check a when action's condition lines and effect against its engine's vocabulary, before any target is touched.
+author: ExaDev
+branding:
+  icon: check-square
+  color: green
+
+inputs:
+  when:
+    description: The condition lines, one per line. Blank lines and lines starting with # are ignored.
+    required: true
+  conditions:
+    description: "The condition names the engine knows, one per line. A name ending in a colon (label:) takes a value, written as label: <value>; any other (not-draft) takes none."
+    required: true
+  then:
+    description: The one effect to apply once every condition holds. The engine supplies its own default.
+    required: true
+  effects:
+    description: The effect names the engine knows, one per line.
+    required: true
+
+outputs:
+  conditions:
+    description: The conditions, one per line as a bare name or a name, a colon and a value, with blank lines, comments and surrounding space removed.
+    value: ${{ steps.parse.outputs.conditions }}
+  then:
+    description: The effect, with surrounding space removed.
+    value: ${{ steps.parse.outputs.then }}
+
+runs:
+  using: composite
+  steps:
+    - id: parse
+      shell: bash
+      env:
+        WHEN: ${{ inputs.when }}
+        CONDITIONS: ${{ inputs.conditions }}
+        THEN: ${{ inputs.then }}
+        EFFECTS: ${{ inputs.effects }}
+      run: ${{ github.action_path }}/parse.sh
