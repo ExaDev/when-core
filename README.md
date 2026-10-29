@@ -1,5 +1,7 @@
 # when-core
 
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/ExaDev/when-core) [![Release](https://img.shields.io/github/v/release/ExaDev/when-core)](https://github.com/ExaDev/when-core/releases/latest) [![CI](https://img.shields.io/github/actions/workflow/status/ExaDev/when-core/ci.yml?branch=main)](https://github.com/ExaDev/when-core/actions)
+
 The shared front half of the `when` actions, such as [`merge-when`](https://github.com/ExaDev/merge-when): it reads the `when` condition lines and the `then` effect a workflow gives, checks them against the vocabulary the calling action (the engine) declares, and hands them back normalised. The engine keeps every predicate and effect; this action only decides whether the input is something the engine understands, and fails the step before the engine touches any pull request if it is not, so a typo can't silently drop a safeguard.
 
 ## Use
